@@ -303,7 +303,11 @@ elseif("${HIP_COMPILER}" STREQUAL "clang")
 
     #Number of parallel jobs by default is 1
     if(NOT DEFINED HIP_CLANG_NUM_PARALLEL_JOBS)
-      set(HIP_CLANG_NUM_PARALLEL_JOBS 1)
+      if($ENV{HIP_CLANG_NUM_PARALLEL_JOBS})
+        set(HIP_CLANG_NUM_PARALLEL_JOBS $ENV{HIP_CLANG_NUM_PARALLEL_JOBS})
+      else()
+        set(HIP_CLANG_NUM_PARALLEL_JOBS 1)
+      endif()
     endif()
     #Add support for parallel build and link
     if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
